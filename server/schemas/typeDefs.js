@@ -6,6 +6,10 @@ type User {
   username: String
   email: String
 }
+type Auth {
+    token: ID!
+    user: User
+  }
 `
 
 module.exports = typeDefs;
