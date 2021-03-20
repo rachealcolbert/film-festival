@@ -8,6 +8,10 @@ const movieSchema = new Schema(
       minlength: 1,
       maxlength: 280
     },
+    movieId: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
     },
