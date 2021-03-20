@@ -25,7 +25,7 @@ const AppNavbar = () => {
                 Search For Movies
               </Nav.Link>
               <>
-                <Nav.Link as={Link} to="/saved">
+                <Nav.Link as={Link} to="/profile">
                   See Your Movies
                 </Nav.Link>
                 <Nav.Link onClick={logout}>Logout</Nav.Link>
