@@ -1,5 +1,11 @@
 import React from "react";
-import { InputGroup, FormControl, Button, Jumbotron, Carousel } from "react-bootstrap";
+import {
+  InputGroup,
+  FormControl,
+  Button,
+  Jumbotron
+} from "react-bootstrap";
+import CarouselX from "../components/Carousel";
 
 const Home = () => {
   return (
@@ -20,11 +26,7 @@ const Home = () => {
         </div>
       </Jumbotron>
       <div>
-        <Carousel fade>
-          <Carousel.Item>
-            
-          </Carousel.Item>
-        </Carousel>
+        <CarouselX />
       </div>
     </div>
   );
