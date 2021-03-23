@@ -13,7 +13,7 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar class="navbar navbar-expand-lg navbar-light by-light">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
             Movie Search
@@ -30,7 +30,6 @@ const AppNavbar = () => {
                 </Nav.Link>
                 <Nav.Link onClick={logout}>Logout</Nav.Link>
               </>
-              ) : (
               <Nav.Link onClick={() => setShowModal(true)}>
                 Login/Sign Up
               </Nav.Link>
@@ -62,10 +61,10 @@ const AppNavbar = () => {
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey="login">
-                <LoginForm handleModalClose={() => setShowModal(false)} />
+                {/* <LoginForm handleModalClose={() => setShowModal(false)} /> */}
               </Tab.Pane>
               <Tab.Pane eventKey="signup">
-                <SignUpForm handleModalClose={() => setShowModal(false)} />
+                {/* <SignUpForm handleModalClose={() => setShowModal(false)} /> */}
               </Tab.Pane>
             </Tab.Content>
           </Modal.Body>
