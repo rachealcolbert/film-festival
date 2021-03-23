@@ -1,8 +1,15 @@
 import React from "react";
 import { InputGroup, FormControl, Button, Jumbotron } from "react-bootstrap";
+// import { useQuery } from '@apollo/react-hooks';
+// import Auth from '../utils/auth';
+
 
 const Home = () => {
+
+  // const loggedIn = Auth.loggedIn();
+
   return (
+    
     <div>
       <Jumbotron>
         <h2>Discover millions of movies and TV shows. Explore now.</h2>
