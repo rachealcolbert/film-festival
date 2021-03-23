@@ -29,3 +29,12 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const GET_MOVIES = gql`
+  query {
+    movies {
+      title
+      year
+    }
+  }
+  `;

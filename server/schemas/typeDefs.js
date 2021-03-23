@@ -6,6 +6,16 @@ type User {
   username: String
   email: String
 }
+
+type Movie {
+  title: String
+  year: Int
+  _ids {
+    tmdb
+  }
+  
+}
+
 type Auth {
     token: ID!
     user: User
