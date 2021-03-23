@@ -1,7 +1,21 @@
 import React from "react";
-import { InputGroup, FormControl, Button, Jumbotron } from "react-bootstrap";
+import {
+  InputGroup,
+  FormControl,
+  Button,
+  Jumbotron,
+  Card,
+} from "react-bootstrap";
+
+import { searchMovies } from "../utils/API";
+import { useQuery } from "@apollo/client";
+import { GET_MOVIES } from "../utils/queries";
+
+const SearchMovies = () => {};
 
 const Home = () => {
+  const { loading, data, error } = useQuery(GET_MOVIES);
+  console.log(data);
   return (
     <div>
       <Jumbotron>
@@ -14,11 +28,14 @@ const Home = () => {
               aria-describedby="basic-addon2"
             />
             <InputGroup.Append>
-              <Button variant="outline-secondary">Search</Button>
+              <Button variant="outline-danger">Search</Button>
             </InputGroup.Append>
           </InputGroup>
         </div>
       </Jumbotron>
+      <div>
+        <pre>{JSON.stringify(data || null, null, 2)}</pre>
+      </div>
     </div>
   );
 };
