@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   InputGroup,
   FormControl,
@@ -11,7 +11,20 @@ import { searchMovies } from "../utils/API";
 import { useQuery } from "@apollo/client";
 import { GET_MOVIES } from "../utils/queries";
 
-const SearchMovies = () => {};
+const SearchMovies = () => {
+  const [searchedMovies, getSearchedMovies] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+};
+
+const handleFormSubmit = async (event) => {
+  event.preventDefualt();
+
+  if (!searchInput) {
+    return false;
+  }
+
+  try const response = await searchMovies
+};
 
 const Home = () => {
   const { loading, data, error } = useQuery(GET_MOVIES);
