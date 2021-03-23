@@ -7,3 +7,7 @@ export const loginUser = (userData) => {
     body: JSON.stringify(userData),
   });
 };
+
+export const searchMovies = (query) => {
+  return fetch("https://api.trakt.tv");
+};
