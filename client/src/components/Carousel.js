@@ -1,16 +1,15 @@
 import React from "react";
-import { Carousel, Image } from "react-bootstrap";
+import { Glide } from "react-glide"
+import CardInfo from "./Card"
 
-const CarouselX = () => {
+const Carousel = () => {
   return (
     <div>
-      <Carousel fade>
-        <Carousel.Item>
-          <Image src="../assets/images/harrypotter.jpg" thumbnail/>
-        </Carousel.Item>
-      </Carousel>
+      <Glide>
+        <CardInfo />
+      </Glide>
     </div>
   );
 };
 
-export default CarouselX;
+export default Carousel;
