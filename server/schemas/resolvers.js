@@ -24,7 +24,11 @@ const resolvers = {
           "trakt-api-key": process.env.TRAKT_API_KEY,
           "trakt-api-version": 2,
         },
-      }).then((res) => res.json());
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          return json.map((o) => o.movie);
+        });
     },
   },
 

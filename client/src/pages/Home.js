@@ -1,5 +1,11 @@
 import React from "react";
-import { InputGroup, FormControl, Button, Jumbotron } from "react-bootstrap";
+import {
+  InputGroup,
+  FormControl,
+  Button,
+  Jumbotron,
+  Card,
+} from "react-bootstrap";
 
 import { searchMovies } from "../utils/API";
 import { useQuery } from "@apollo/client";
@@ -27,6 +33,9 @@ const Home = () => {
           </InputGroup>
         </div>
       </Jumbotron>
+      <div>
+        <pre>{JSON.stringify(data || null, null, 2)}</pre>
+      </div>
     </div>
   );
 };
