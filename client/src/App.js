@@ -1,12 +1,13 @@
+import React from 'react';
+import ApolloClient from 'apollo-boost';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
-import Profile from "./pages/userProfile";
 import "./index.css";
-import Navbar from "./components/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
 
 import {
-  ApolloClient,
+  // ApolloClient,
   createHttpLink,
   InMemoryCache,
   ApolloProvider,
@@ -42,12 +43,12 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/profile" component={Profile} />
           </Switch>
         </>
       </Router>
     </ApolloProvider>
   );
 }
+
 
 export default App;
