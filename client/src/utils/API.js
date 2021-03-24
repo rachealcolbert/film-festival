@@ -8,57 +8,6 @@ export const loginUser = (userData) => {
   });
 };
 
-export const searchMovies = (token) => {
-  return fetch("http://api.trakt.tv/movies/trending", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "trakt-api-key":
-        "aabb088e28dc563cb354152b1b4b2bc20055c9aa64c159720e32c7274692e560",
-      "trakt-api-version": 2,
-    },
-  })
-    .then((res) => res.json())
-    .then((json) => {
-      console.log(json.map((o) => o.movie));
-      return json.map((o) => o.movie);
-    });
+export const searchMovies = (query) => {
+  return fetch(`http://www.omdbapi.com/?apikey=b7b6ed72&s=${query}`);
 };
-
-export const searchPopularMovies = (token) => {
-  return fetch("http://api.trakt.tv/lists/popular", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "trakt-api-key":
-        "aabb088e28dc563cb354152b1b4b2bc20055c9aa64c159720e32c7274692e560",
-      "trakt-api-version": 2,
-    },
-  })
-    .then((res) => res.json())
-    .then((json) => {
-      console.log(json.map((o) => o.movie));
-      return json.map((o) => o.movie);
-    });
-};
-
-export const searchBoxOfficeMovies = (token) => {
-  return fetch("https://api.trakt.tv/movies/boxoffice", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "trakt-api-key":
-        "aabb088e28dc563cb354152b1b4b2bc20055c9aa64c159720e32c7274692e560",
-      "trakt-api-version": 2,
-    },
-  })
-    .then((res) => res.json())
-    .then((json) => {
-      console.log(json.map((o) => o.movie));
-      return json.map((o) => o.movie);
-    });
-};
-
-// export const searchMovies = (query) => {
-//   return fetch("https://api.trakt.tv");
-// };

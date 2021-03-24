@@ -13,7 +13,7 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar class="navbar navbar-expand-lg navbar-light by-light">
+      <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>
           <Navbar.Brand as={Link} to="/">
             Movie Search
@@ -30,6 +30,7 @@ const AppNavbar = () => {
                 </Nav.Link>
                 <Nav.Link onClick={logout}>Logout</Nav.Link>
               </>
+              ) : (
               <Nav.Link onClick={() => setShowModal(true)}>
                 Login/Sign Up
               </Nav.Link>

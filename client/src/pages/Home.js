@@ -34,11 +34,12 @@ const Home = () => {
         throw new Error("something went wrong!");
       }
 
-      const { items } = await response.json();
-
-      const movieData = items.map((movie) => ({
-        title: movie.title,
-        year: movie.year,
+      const { Search: movies } = await response.json();
+      console.log(movies);
+      const movieData = movies.map((movie) => ({
+        title: movie.Title,
+        year: movie.Year,
+        image: movie.Poster
       }));
 
       setSearchedMovies(movieData);
@@ -82,6 +83,8 @@ const Home = () => {
               <Card key={movie.title} border="dark">
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
+
+                  <img src={movie.image} style={{ width: '100%' }} />
                   <p> Year released: {movie.year}</p>
                 </Card.Body>
               </Card>
