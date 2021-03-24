@@ -5,38 +5,57 @@ import {
   Button,
   Jumbotron,
   Card,
+  CardColumns,
+  Container,
 } from "react-bootstrap";
 
 import { searchMovies } from "../utils/API";
 import { useQuery } from "@apollo/client";
 import { GET_MOVIES } from "../utils/queries";
 
-const SearchMovies = () => {
-  const [searchedMovies, getSearchedMovies] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-};
-
-const handleFormSubmit = async (event) => {
-  event.preventDefualt();
-
-  if (!searchInput) {
-    return false;
-  }
-
-  try const response = await searchMovies
-};
-
 const Home = () => {
   const { loading, data, error } = useQuery(GET_MOVIES);
   console.log(data);
+
+  const [searchedMovies, setSearchedMovies] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!searchInput) {
+      return false;
+    }
+
+    try {
+      const response = await searchMovies(searchInput);
+
+      if (!response.ok) {
+        throw new Error("something went wrong!");
+      }
+
+      const { items } = await response.json();
+
+      const movieData = items.map((movie) => ({
+        title: movie.title,
+        year: movie.year,
+      }));
+
+      setSearchedMovies(movieData);
+      setSearchInput("");
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <div>
       <Jumbotron>
         <h2>Discover millions of movies and TV shows. Explore now.</h2>
         <div>
-          <InputGroup className="mb-3">
+          <InputGroup className="mb-3" onSubmit={handleFormSubmit}>
             <FormControl
               placeholder="Search by movie title"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               aria-label="Search by Movie"
               aria-describedby="basic-addon2"
             />
@@ -46,9 +65,26 @@ const Home = () => {
           </InputGroup>
         </div>
       </Jumbotron>
-      <div>
-        <pre>{JSON.stringify(data || null, null, 2)}</pre>
-      </div>
+      <Container>
+        <h2>
+          {searchedMovies.length
+            ? `Viewing ${searchedMovies.length} results:`
+            : "Search for a movie"}
+        </h2>
+        <CardColumns>
+          {searchedMovies.map((movie) => {
+            return (
+              <Card key={movie.title} border="dark">
+                <Card.Body>
+                  <Card.Title>{movie.title}</Card.Title>
+                  <p> Year released: {movie.year}</p>
+                </Card.Body>
+              </Card>
+            );
+          })}
+          {/* <pre>{JSON.stringify(data || null, null, 2)}</pre> */}
+        </CardColumns>
+      </Container>
     </div>
   );
 };
