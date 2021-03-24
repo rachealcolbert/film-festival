@@ -1,23 +1,20 @@
 const { User } = require('../models');
 const {signToken} = require('../utils/auth');
-
-const {
-  AuthenticationError,
-  UserInputError,
-} = require("apollo-server-express");
-
+const {AuthenticationError,UserInputError,} = require("apollo-server-express");
 const fetch = require("node-fetch");
+
+
 const resolvers = {
   Query: {
-    // me: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const userData = await User.findone({ _id: context.user._id })
-    //       .select("-__v -password")
-    //       .populate("movies");
-    //     return userData;
-    //   }
-    //   throw new AuthenticationError("Not logged in");
-    // },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findone({ _id: context.user._id })
+          .select("-__v -password")
+          .populate("movies");
+        return userData;
+      }
+      throw new AuthenticationError("Not logged in");
+    },
     movies: (parent, args) => {
       console.log("getting movies");
       return fetch("http://api.trakt.tv/movies/trending", {
@@ -47,22 +44,22 @@ const resolvers = {
       }
       catch (e) { console.log(e)}
     },
-    // login: async (parent, { email, password }) => {
-    //   const user = await User.findOne({ email });
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
 
-    //   if (!user) {
-    //     throw new AuthenticationError('Incorrect credentials');
-    //   }
+      if (!user) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
 
-    //   const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await user.isCorrectPassword(password);
 
-    //   if (!correctPw) {
-    //     throw new AuthenticationError('Incorrect credentials');
-    //   }
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
 
-    //   const token = signToken(user);
-    //   return { token, user };
-    // },
+      const token = signToken(user);
+      return { token, user };
+    },
   }
 };
 
