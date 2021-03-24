@@ -33,11 +33,12 @@ const Home = () => {
         throw new Error("something went wrong!");
       }
 
-      const { items } = await response.json();
-
-      const movieData = items.map((movie) => ({
-        title: movie.title,
-        year: movie.year,
+      const { Search: movies } = await response.json();
+      console.log(movies);
+      const movieData = movies.map((movie) => ({
+        title: movie.Title,
+        year: movie.Year,
+        image: movie.Poster
       }));
 
       setSearchedMovies(movieData);
@@ -51,18 +52,20 @@ const Home = () => {
       <Jumbotron>
         <h2>Discover millions of movies and TV shows. Explore now.</h2>
         <div>
-          <InputGroup className="mb-3" onSubmit={handleFormSubmit}>
-            <FormControl
-              placeholder="Search by movie title"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              aria-label="Search by Movie"
-              aria-describedby="basic-addon2"
-            />
-            <InputGroup.Append>
-              <Button variant="outline-danger">Search</Button>
-            </InputGroup.Append>
-          </InputGroup>
+          <form onSubmit={handleFormSubmit}>
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="Search by movie title"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                aria-label="Search by Movie"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Append>
+                <Button type="submit" variant="outline-danger">Search</Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </form>
         </div>
       </Jumbotron>
       <Container>
@@ -77,6 +80,8 @@ const Home = () => {
               <Card key={movie.title} border="dark">
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
+
+                  <img src={movie.image} style={{ width: '100%' }} />
                   <p> Year released: {movie.year}</p>
                 </Card.Body>
               </Card>
