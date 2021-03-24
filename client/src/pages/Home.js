@@ -7,6 +7,7 @@ import {
   Card,
   CardColumns,
   Container,
+  Form,
 } from "react-bootstrap";
 
 import { searchMovies } from "../utils/API";
@@ -28,7 +29,7 @@ const Home = () => {
 
     try {
       const response = await searchMovies(searchInput);
-
+      console.log(response);
       if (!response.ok) {
         throw new Error("something went wrong!");
       }
@@ -51,18 +52,22 @@ const Home = () => {
       <Jumbotron>
         <h2>Discover millions of movies and TV shows. Explore now.</h2>
         <div>
-          <InputGroup className="mb-3" onSubmit={handleFormSubmit}>
-            <FormControl
-              placeholder="Search by movie title"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              aria-label="Search by Movie"
-              aria-describedby="basic-addon2"
-            />
-            <InputGroup.Append>
-              <Button variant="outline-danger">Search</Button>
-            </InputGroup.Append>
-          </InputGroup>
+          <Form onSubmit={handleFormSubmit}>
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="Search by movie title"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                aria-label="Search by Movie"
+                aria-describedby="basic-addon2"
+              />
+              <InputGroup.Append>
+                <Button variant="outline-danger" type="submit">
+                  Search
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Form>
         </div>
       </Jumbotron>
       <Container>
