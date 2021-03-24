@@ -16,6 +16,11 @@ const typeDefs = gql`
   }
   type Query {
     movies: [Movie!]!
+    me: User
+  }
+  type Mutation {
+    addUser(email: String!, username: String!, password: String!): Auth
+    login(email: String!, password: String!, password: String!): Auth
   }
 `;
 
