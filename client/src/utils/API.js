@@ -9,5 +9,5 @@ export const loginUser = (userData) => {
 };
 
 export const searchMovies = (query) => {
-  return fetch("https://api.trakt.tv");
+  return fetch(`http://www.omdbapi.com/?apikey=b7b6ed72&s=${query}`);
 };
