@@ -15,8 +15,8 @@ import { useQuery } from "@apollo/client";
 import { GET_MOVIES } from "../utils/queries";
 
 const Home = () => {
-  const { loading, data, error } = useQuery(GET_MOVIES);
-  console.log(data);
+  //   const { loading, data, error } = useQuery(GET_MOVIES);
+  //   console.log(data);
 
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -50,7 +50,7 @@ const Home = () => {
   return (
     <div>
       <Jumbotron>
-        <h2>Discover millions of movies and TV shows. Explore now.</h2>
+        <h2>Discover millions of movies and TV shows. Search now.</h2>
         <div>
           <Form onSubmit={handleFormSubmit}>
             <InputGroup className="mb-3">
