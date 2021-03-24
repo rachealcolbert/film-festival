@@ -8,6 +8,10 @@ export const loginUser = (userData) => {
   });
 };
 
-export const searchMovies = (query) => {
+/* export const searchMovies = (query) => {
   return fetch("https://api.trakt.tv");
+}; */
+
+export const searchMovies = (query) => {
+  return fetch(`https://api.trakt.tv/movies/popular?New%20item=${query}`);
 };
