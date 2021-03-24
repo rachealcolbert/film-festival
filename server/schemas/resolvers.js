@@ -27,6 +27,7 @@ const resolvers = {
       })
         .then((res) => res.json())
         .then((json) => {
+          console.log(json.map((o) => o.movie));
           return json.map((o) => o.movie);
         });
     },
