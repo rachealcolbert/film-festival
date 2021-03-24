@@ -1,21 +1,13 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
-
+import { searchMovies } from "../utils/API";
+import { useQuery } from "@apollo/client";
+import { GET_MOVIES } from "../utils/queries";
 
 const CardInfo = () => {
   return (
     <div>
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src="" />
-          <Card.Body>
-            <Card.Title>{resolvers.movies.title}</Card.Title>
-            <Card.Text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </Card.Text>
-            <Button variant="primary">See More</Button>
-          </Card.Body>
-        </Card>
+      
     </div>
   );
 };

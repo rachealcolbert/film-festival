@@ -8,6 +8,7 @@ import {
   CardColumns,
   Container,
 } from "react-bootstrap";
+import CardInfo from "../components/Card";
 
 import { searchMovies } from "../utils/API";
 import { useQuery } from "@apollo/client";
@@ -74,15 +75,19 @@ const Home = () => {
         <CardColumns>
           {searchedMovies.map((movie) => {
             return (
-              <Card key={movie.title} border="dark">
+              <Card style={{ width: "18rem" }} key={movie.title} border="dark">
+                <Card.Img variant="top" src="" />
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
-                  <p> Year released: {movie.year}</p>
+                  <Card.Text>
+                    <p> Year released: {movie.year}</p>
+                  </Card.Text>
+                  <Button variant="primary">See More</Button>
                 </Card.Body>
               </Card>
             );
           })}
-          {/* <pre>{JSON.stringify(data || null, null, 2)}</pre> */}
+          <pre>{JSON.stringify(data || null, null, 2)}</pre>
         </CardColumns>
       </Container>
     </div>
