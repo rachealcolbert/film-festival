@@ -69,7 +69,7 @@ const Home = () => {
         <h2>
           {searchedMovies.length
             ? `Viewing ${searchedMovies.length} results:`
-            : "Search for a movie"}
+            : ""}
         </h2>
         <CardColumns>
           {searchedMovies.map((movie) => {
