@@ -11,8 +11,7 @@ import {
 } from "react-bootstrap";
 
 import { searchMovies } from "../utils/API";
-import { useQuery } from "@apollo/client";
-import { GET_MOVIES } from "../utils/queries";
+import Auth from "../utils/auth";
 
 const Home = () => {
   //   const { loading, data, error } = useQuery(GET_MOVIES);
@@ -39,7 +38,7 @@ const Home = () => {
       const movieData = movies.map((movie) => ({
         title: movie.Title,
         year: movie.Year,
-        image: movie.Poster
+        image: movie.Poster,
       }));
 
       setSearchedMovies(movieData);
@@ -51,7 +50,8 @@ const Home = () => {
   return (
     <div>
       <Jumbotron>
-        <h2>Discover millions of movies and TV shows. Search now.</h2>
+        <h2>Discover millions of movies.</h2>
+        <h4> Search now and save the ones you like!</h4>
         <div>
           <Form onSubmit={handleFormSubmit}>
             <InputGroup className="mb-3">
@@ -63,7 +63,7 @@ const Home = () => {
                 aria-describedby="basic-addon2"
               />
               <InputGroup.Append>
-                <Button variant="outline-danger" type="submit">
+                <Button variant="outline-info" type="submit">
                   Search
                 </Button>
               </InputGroup.Append>
@@ -74,18 +74,26 @@ const Home = () => {
       <Container>
         <h2>
           {searchedMovies.length
-            ? `Viewing ${searchedMovies.length} results:`
+            ? `Viewing ${searchedMovies.length} movies:`
             : ""}
         </h2>
         <CardColumns>
           {searchedMovies.map((movie) => {
             return (
-              <Card key={movie.title} border="dark">
+              <Card
+                key={movie.title}
+                bg="info"
+                text="white"
+                className="text-center p-3"
+              >
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
-
-                  <img src={movie.image} style={{ width: '100%' }} />
                   <p> Year released: {movie.year}</p>
+                  <img src={movie.image} style={{ width: "100%" }} />
+
+                  {/* {Auth.loggedIn() && ( */}
+                  <Button className="btn-block btn-light">Save Movie</Button>
+                  {/* )} */}
                 </Card.Body>
               </Card>
             );
