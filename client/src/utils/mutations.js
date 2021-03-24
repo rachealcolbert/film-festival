@@ -10,11 +10,10 @@ mutation login($email: String!, $password: String!) {
       email
       movieCount
       savedMovies {
-        movieId 
-        description
-        title 
+        movieId
+        title
         image
-        link
+        rating
       }
     }
   }
@@ -34,10 +33,9 @@ mutation addUser($username: String!, $email: String!, $password: String!) {
       movieCount
       savedMovies {
         movieId
-        description
         title
         image
-        link
+        rating
       }
     }
   }
@@ -51,11 +49,10 @@ mutation saveMovie($input: movieInput!) {
     username
     email
     savedMovies {
-        movieId
-        description
+      movieId
         title
         image
-        link
+        rating
     }
   }
 }
@@ -67,14 +64,12 @@ mutation removeMovie($movieId: String!) {
     _id
     username
     email
-    bookCount
-    savedBooks {
-        bookId
-        authors
-        description
+    movieCount
+    savedMovies {
+        movieId
         title
         image
-        link
+        rating
     }
   }
 }

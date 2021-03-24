@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import {
   InputGroup,
   FormControl,
@@ -41,3 +41,4 @@ const Home = () => {
 };
 
 export default Home;
+*/

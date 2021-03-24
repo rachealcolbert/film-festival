@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
+import searchMovies from "./pages/SearchMovies";
 import Profile from "./pages/userProfile";
 import "./index.css";
 import Navbar from "./components/Navbar";
@@ -41,7 +41,7 @@ function App() {
         <>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={searchMovies} />
             <Route exact path="/profile" component={Profile} />
           </Switch>
         </>

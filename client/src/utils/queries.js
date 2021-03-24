@@ -9,10 +9,9 @@ query {
     movieCount
     savedMovies {
         movieId 
-        description
         title 
         image
-        link
+        rating
     }
   }
 }
