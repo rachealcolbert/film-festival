@@ -5,6 +5,13 @@ export const GET_MOVIES = gql`
     movies {
       title
       year
+      ids {
+        trakt
+        slug
+        tvdb
+        imdb
+        tmdb
+      }
     }
   }
 `;
