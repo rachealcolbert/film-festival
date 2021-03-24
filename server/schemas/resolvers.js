@@ -1,3 +1,6 @@
+const { User } = require('../models');
+const {signToken} = require('../utils/auth');
+
 const {
   AuthenticationError,
   UserInputError,
@@ -33,30 +36,34 @@ const resolvers = {
     },
   },
 
-  // Mutation: {
-  //   addUser: async (parent, args) => {
-  //     const user = await User.create(args);
-  //     const token = signToken(user);
+  Mutation: {
+    addUser: async (parent, args) => {
+      try {
+        console.log(args)
+        const user = await User.create(args);
+        const token = signToken(user);
 
-  //     return { token, user };
-  //   },
-  //   login: async (parent, { email, password }) => {
-  //     const user = await User.findOne({ email });
+        return { token, user };
+      }
+      catch (e) { console.log(e)}
+    },
+    // login: async (parent, { email, password }) => {
+    //   const user = await User.findOne({ email });
 
-  //     if (!user) {
-  //       throw new AuthenticationError('Incorrect credentials');
-  //     }
+    //   if (!user) {
+    //     throw new AuthenticationError('Incorrect credentials');
+    //   }
 
-  //     const correctPw = await user.isCorrectPassword(password);
+    //   const correctPw = await user.isCorrectPassword(password);
 
-  //     if (!correctPw) {
-  //       throw new AuthenticationError('Incorrect credentials');
-  //     }
+    //   if (!correctPw) {
+    //     throw new AuthenticationError('Incorrect credentials');
+    //   }
 
-  //     const token = signToken(user);
-  //     return { token, user };
-  //   },
-  // }
+    //   const token = signToken(user);
+    //   return { token, user };
+    // },
+  }
 };
 
 module.exports = resolvers;
