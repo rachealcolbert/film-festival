@@ -7,6 +7,7 @@ import {
   Card,
   CardColumns,
   Container,
+  Form,
 } from "react-bootstrap";
 
 import { searchMovies } from "../utils/API";
@@ -14,8 +15,8 @@ import { useQuery } from "@apollo/client";
 import { GET_MOVIES } from "../utils/queries";
 
 const Home = () => {
-  const { loading, data, error } = useQuery(GET_MOVIES);
-  console.log(data);
+  //   const { loading, data, error } = useQuery(GET_MOVIES);
+  //   console.log(data);
 
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -28,7 +29,7 @@ const Home = () => {
 
     try {
       const response = await searchMovies(searchInput);
-
+      console.log(response);
       if (!response.ok) {
         throw new Error("something went wrong!");
       }
@@ -50,9 +51,9 @@ const Home = () => {
   return (
     <div>
       <Jumbotron>
-        <h2>Discover millions of movies and TV shows. Explore now.</h2>
+        <h2>Discover millions of movies and TV shows. Search now.</h2>
         <div>
-          <form onSubmit={handleFormSubmit}>
+          <Form onSubmit={handleFormSubmit}>
             <InputGroup className="mb-3">
               <FormControl
                 placeholder="Search by movie title"
@@ -62,17 +63,19 @@ const Home = () => {
                 aria-describedby="basic-addon2"
               />
               <InputGroup.Append>
-                <Button type="submit" variant="outline-danger">Search</Button>
+                <Button variant="outline-danger" type="submit">
+                  Search
+                </Button>
               </InputGroup.Append>
             </InputGroup>
-          </form>
+          </Form>
         </div>
       </Jumbotron>
       <Container>
         <h2>
           {searchedMovies.length
             ? `Viewing ${searchedMovies.length} results:`
-            : "Search for a movie"}
+            : ""}
         </h2>
         <CardColumns>
           {searchedMovies.map((movie) => {
