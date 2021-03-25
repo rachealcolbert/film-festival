@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 import SignUpForm from "./SignupForm";
 import LoginForm from ".//LoginForm";
-import Profile from "../pages/Profile";
+// import Profile from "../pages/Profile";
 
 const AppNavbar = () => {
   // set modal display state

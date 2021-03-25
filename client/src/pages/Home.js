@@ -6,7 +6,7 @@ const Home = () => {
 
   return (
     <div>
-      <Jumbotron>
+      <Jumbotron fluid>
         <h2>Discover millions of movies. Search now!</h2>
         <Search />
       </Jumbotron>
