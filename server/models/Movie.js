@@ -2,7 +2,7 @@ const { Schema } = require('mongoose');
 
 const movieSchema = new Schema(
   {
-    movieTitle: {
+    title: {
       type: String,
       required: 'You need to list a movie title!',
       minlength: 1,
@@ -12,15 +12,12 @@ const movieSchema = new Schema(
       type: String,
       required: true,
     },
-    description: {
+    year: {
       type: String,
     },
     image: {
       type: String,
     },
-    link: {
-      type: String,
-    }
   }
 )
 
