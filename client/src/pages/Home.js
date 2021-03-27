@@ -6,8 +6,7 @@ import {
   Container,
   CardGroup,
 } from "react-bootstrap";
-import Search from '../components/Search'
-
+import Search from '../components/Search';
 
 const Home = () => {
 
@@ -17,6 +16,7 @@ const Home = () => {
         <h2>Discover millions of movies. Search now!</h2>
         <Search />
       </Jumbotron>
+      
       <Container bg="dark">
         <h3> Top 5 Trending Movies</h3>
         <CardGroup>
@@ -72,6 +72,7 @@ const Home = () => {
           </Card>
         </CardGroup>
       </Container>
+     
     </div>
   );
 };

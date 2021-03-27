@@ -8,15 +8,19 @@ import {
   Container,
   Form,
 } from "react-bootstrap";
-import { saveMovie, searchMovies } from "../utils/API";
-import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage"
-import Auth from "../utils/auth";
 
+import { searchMovies } from "../utils/API";
+import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
+import { SAVE_MOVIE } from "../utils/mutations";
+import { useMutation } from "@apollo/client";
+
+import Auth from "../utils/auth";
 
 const Search = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
+  const [saveMovie, {error}] = useMutation(SAVE_MOVIE);
 
   useEffect(() => {
     return () => saveMovieIds(savedMovieIds);
@@ -40,7 +44,6 @@ const Search = () => {
       const { Search: movies } = await response.json();
       console.log(movies);
       const movieData = movies.map((movie) => ({
-        movieId: movies.id,
         title: movie.Title,
         year: movie.Year,
         image: movie.Poster,
@@ -51,10 +54,12 @@ const Search = () => {
     } catch (err) {
       console.error(err);
     }
+    
   };
 
   const handleSaveMovie = async (movieId) => {
-    const movieToSave = searchedMovies.find((movies) => movies.movieId === movieId);
+
+    const movieToSave = searchedMovies.find((movie) => movie.movieId === movieId);
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -63,17 +68,24 @@ const Search = () => {
     }
 
     try {
-      const response = await saveMovie(movieToSave, token);
+      const { data } = await saveMovie({
+        variables: {input: movieToSave},
+      })
+
+      console.log(data)
       
-      if (!response.ok) {
-        throw new Error('something went wrong!')
+      if (error) {
+        throw new Error('you\'ve made a booboo')
+        
       }
+      
+
       setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
     } catch (err) {
       console.error(err)
     }
   }
- 
+
   return (
     <div>
       <div>
