@@ -2,11 +2,18 @@ import { gql } from "@apollo/client";
 
 export const GET_MOVIES = gql`
   query {
-    movies {
-      movieId
-      title
-      year
+    me {
+      _id
+      username
+      email
+      savedMovies {
+        movieId
+        title
+        year
+        image
+      }
     }
+    
   }
 `;
 export const GET_ME = gql`
@@ -16,6 +23,7 @@ export const GET_ME = gql`
       username
       email
       savedMovies {
+        movieId
         title
         year
         image

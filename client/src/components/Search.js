@@ -20,7 +20,7 @@ const Search = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
-  const [saveMovie, {error}] = useMutation(SAVE_MOVIE);
+  const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
   useEffect(() => {
     return () => saveMovieIds(savedMovieIds);
@@ -60,6 +60,7 @@ const Search = () => {
   const handleSaveMovie = async (movieId) => {
 
     const movieToSave = searchedMovies.find((movie) => movie.movieId === movieId);
+    console.log(movieToSave);
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -81,8 +82,10 @@ const Search = () => {
       
 
       setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
+      console.log(setSavedMovieIds)
     } catch (err) {
       console.error(err)
+
     }
   }
 
