@@ -26,16 +26,18 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_MOVIE = gql`
-mutation addMovie($movies: String!, $title: String!, $year: String!) {
-  addMovie(movies: $movies, title: $title, year: $year) {
-    token
-    user {
-      movies {
+export const SAVE_MOVIE = gql`
+  mutation saveMovie($input: movieInput!) {
+    saveMovie(input: $input) {
+      _id
+      username
+      email
+      savedMovies {
+        movieId
         title
         year
+        image
       }
     }
   }
-}
 `;

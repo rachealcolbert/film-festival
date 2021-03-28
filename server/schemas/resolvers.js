@@ -8,7 +8,7 @@ const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findone({ _id: context.user._id })
+        const userData = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
           .populate("movies");
         return userData;
@@ -59,6 +59,17 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+    saveMovie: async (parent, { input }, context ) => {
+      if (context.user) {
+        const updateUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { savedMovies: input } },
+          { new: true , runValidators: true}
+        );
+        return updateUser;
+      }
+      throw new AuthenticationError('You need to be logged in');
     },
   }
 };
