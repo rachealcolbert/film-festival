@@ -67,15 +67,3 @@ export const ADD_MOVIE = gql`
   }
 `;
 
-export const REMOVE_MOVIE = gql`
-  mutation removeMovie($id: ID!) {
-    removeMovie(movieId: $id) {
-      _id
-      username
-      movieId
-      title
-      year
-    }
-  }
-`;
-
