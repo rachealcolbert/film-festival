@@ -27,7 +27,7 @@ const Home = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [trendingMovies, setTrendingMovies] = useState([]);
-
+  console.log(trendingMovies);
   const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
   const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
@@ -36,10 +36,10 @@ const Home = () => {
   });
 
   useEffect(() => {
-    fetchTrendingMovies().then(response => response.json().then(data => setTrendingMovies(data)));
+    fetchTrendingMovies().then(response => response.json().then(data => setTrendingMovies(data.results)));
 
   }, [])
-  console.log(trendingMovies);
+
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -153,6 +153,42 @@ const Home = () => {
                   <Card.Title>{movie.title}</Card.Title>
                   <p> Year released: {movie.year}</p>
                   {/*<img src={movie.image} style={{ width: "100%" }} alt={movie.title} />*/}
+
+                  {/* {Auth.loggedIn() && ( */}
+                  <Button className="btn-block btn-light" disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
+                    onClick={() => handleSaveMovie(movie.movieId)}>
+                    {savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)
+                      ? 'This movie has already been saved!'
+                      : 'Save this Movie!'}</Button>
+                  {/* )} */}
+                </Card.Body>
+              </Card>
+            );
+          })}
+          {/* <pre>{JSON.stringify(data || null, null, 2)}</pre> */}
+        </CardColumns>
+      </Container>
+
+      <Container bg="dark" >
+        <h3> Top 5 Trending Movies</h3>
+        <CardColumns>
+
+          {trendingMovies.slice(0, 5).map((movie) => {
+
+            return (
+              <Card
+                key={movie.id}
+                bg="info"
+                text="white"
+                className="text-center p-3"
+              >
+
+                {movie.poster_path ? (
+                  <Card.Img src={'https://image.tmdb.org/t/p/original' + movie.poster_path} alt={`The cover for ${movie.title}`} variant='top' />
+                ) : null}
+
+                <Card.Body>
+                  <Card.Title>{movie.title}</Card.Title>
 
                   {/* {Auth.loggedIn() && ( */}
                   <Button className="btn-block btn-light" disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
