@@ -5,6 +5,8 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
+    movieCount: Int
+    savedMovies: [Movie]
   }
   type Auth {
     token: ID!

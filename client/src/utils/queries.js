@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import gql from "graphql-tag";
 
 export const GET_MOVIES = gql`
   query {
@@ -9,4 +9,14 @@ export const GET_MOVIES = gql`
   }
 `;
 
-// export
+export const GET_ME = gql`
+  {
+    me {
+      _id
+      username
+      email
+      movieCount
+      savedMovies
+    }
+  }
+`;
