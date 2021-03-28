@@ -132,10 +132,15 @@ const Home = () => {
                 text="white"
                 className="text-center p-3"
               >
+
+                {movie.image ? (
+                  <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
+                ) : null}
+
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
                   <p> Year released: {movie.year}</p>
-                  <img src={movie.image} style={{ width: "100%" }} alt={movie.title} />
+                  {/*<img src={movie.image} style={{ width: "100%" }} alt={movie.title} />*/}
 
                   {/* {Auth.loggedIn() && ( */}
                   <Button className="btn-block btn-light" disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
