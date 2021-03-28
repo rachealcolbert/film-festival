@@ -8,20 +8,26 @@ import {
   Container,
   Form,
 } from "react-bootstrap";
-import { saveMovie, searchMovies } from "../utils/API";
-import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage"
+
+import { searchMovies } from "../utils/API";
+import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
+
+import { ADD_MOVIE } from "../utils/mutations";
 import Auth from "../utils/auth";
 
+import { useMutation } from "@apollo/react-hooks";
 
 const Search = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+
+  const [addMovie] = useMutation(ADD_MOVIE);
+
   const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
 
   useEffect(() => {
     return () => saveMovieIds(savedMovieIds);
   });
-  
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -54,8 +60,11 @@ const Search = () => {
   };
 
   const handleSaveMovie = async (movieId) => {
+    const movieToSave = searchedMovies.find(
+      (movies) => movies.movieId === movieId
+    );
     const movieToSave = searchedMovies.find((movies) => movies.movieId === movieId);
-
+    
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -63,17 +72,16 @@ const Search = () => {
     }
 
     try {
-      const response = await saveMovie(movieToSave, token);
-      
-      if (!response.ok) {
-        throw new Error('something went wrong!')
-      }
+      await addMovie({
+        variables: { movieId },
+      });
+
       setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
- 
+  };
+
   return (
     <div>
       <div>
@@ -105,14 +113,19 @@ const Search = () => {
                     <Card.Title>{movie.title}</Card.Title>
                     <Card.Text>Released in: {movie.year}</Card.Text>
                     {Auth.loggedIn() && (
-                    <Button
-                      disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
-                      className='btn-block btn-info'
-                      onClick={() => handleSaveMovie(movie.movieId)}>
-                      {savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)
-                        ? 'This movie has already been saved!'
-                        : 'Save this Movie!'}
-                    </Button>
+                      <Button
+                        disabled={savedMovieIds?.some(
+                          (savedMovieId) => savedMovieId === movie.movieId
+                        )}
+                        className="btn-block btn-info"
+                        onClick={() => handleSaveMovie(movie.movieId)}
+                      >
+                        {savedMovieIds?.some(
+                          (savedMovieId) => savedMovieId === movie.movieId
+                        )
+                          ? "This movie has already been saved!"
+                          : "Save this Movie!"}
+                      </Button>
                     )}
                   </Card.Body>
                 </Card>
