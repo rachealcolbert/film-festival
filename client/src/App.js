@@ -1,11 +1,12 @@
-import React from 'react';
-import ApolloClient from 'apollo-boost';
+import React from "react";
+import ApolloClient from "apollo-boost";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-
+import Navbar from "./components/Navbar";
+import Search from "./components/Search";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 import {
   // ApolloClient,
   createHttpLink,
@@ -43,12 +44,13 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/Profile" component={Profile} />
+            <Route exact path="/Search" component={Search} />
           </Switch>
         </>
       </Router>
     </ApolloProvider>
   );
 }
-
 
 export default App;
