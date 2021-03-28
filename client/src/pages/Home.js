@@ -1,8 +1,16 @@
 import React from "react";
-import { Button, Jumbotron, Card, Container, CardGroup } from "react-bootstrap";
-import Search from "../components/Search";
+import {
+  Button,
+  Jumbotron,
+  Card,
+  Container,
+  CardGroup,
+} from "react-bootstrap";
+import Search from '../components/Search'
+
 
 const Home = () => {
+
   return (
     <div>
       <Jumbotron fluid>

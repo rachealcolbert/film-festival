@@ -1,10 +1,8 @@
-const { User } = require("../models");
-const { signToken } = require("../utils/auth");
-const {
-  AuthenticationError,
-  UserInputError,
-} = require("apollo-server-express");
+const { User } = require('../models');
+const {signToken} = require('../utils/auth');
+const {AuthenticationError,UserInputError,} = require("apollo-server-express");
 const fetch = require("node-fetch");
+
 
 const resolvers = {
   Query: {
@@ -19,10 +17,12 @@ const resolvers = {
     },
     movies: (parent, args) => {
       console.log("getting movies");
-      return fetch(`http://www.omdbapi.com/?apikey=b7b6ed72&s=${query}`, {
+      return fetch("http://api.trakt.tv/movies/trending", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "trakt-api-key": process.env.TRAKT_API_KEY,
+          "trakt-api-version": 2,
         },
       })
         .then((res) => res.json())
@@ -36,32 +36,31 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, args) => {
       try {
-        console.log(args);
+        console.log(args)
         const user = await User.create(args);
         const token = signToken(user);
 
         return { token, user };
-      } catch (e) {
-        console.log(e);
       }
+      catch (e) { console.log(e)}
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new AuthenticationError('Incorrect credentials');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new AuthenticationError('Incorrect credentials');
       }
 
       const token = signToken(user);
       return { token, user };
     },
-  },
+  }
 };
 
 module.exports = resolvers;

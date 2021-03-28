@@ -9,19 +9,19 @@ export const loginUser = (userData) => {
 };
 
 export const getMe = (token) => {
-  return fetch("/api/users/me", {
+  return fetch('/api/users/me', {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       authorization: `Bearer ${token}`,
     },
   });
 };
 
-export const addMovie = (movieData, token) => {
-  return fetch("/api/users", {
-    method: "PUT",
+export const saveMovie = (movieData, token) => {
+  return fetch('/api/users', {
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(movieData),
