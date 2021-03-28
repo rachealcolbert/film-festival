@@ -15,7 +15,7 @@ import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
 import { ADD_MOVIE } from "../utils/mutations";
 import Auth from "../utils/auth";
 
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 
 const Search = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -63,8 +63,8 @@ const Search = () => {
     const movieToSave = searchedMovies.find(
       (movies) => movies.movieId === movieId
     );
-    const movieToSave = searchedMovies.find((movies) => movies.movieId === movieId);
-    
+
+
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
