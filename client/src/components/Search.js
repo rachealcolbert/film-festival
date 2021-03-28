@@ -63,8 +63,7 @@ const Search = () => {
     const movieToSave = searchedMovies.find(
       (movies) => movies.movieId === movieId
     );
-    const movieToSave = searchedMovies.find((movies) => movies.movieId === movieId);
-    
+
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
