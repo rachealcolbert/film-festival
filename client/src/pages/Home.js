@@ -170,10 +170,10 @@ const Home = () => {
       </Container>
 
       <Container bg="dark" >
-        <h3> Top 5 Trending Movies</h3>
+        <h3> Top 3 Trending Movies</h3>
         <CardColumns>
 
-          {trendingMovies.slice(0, 5).map((movie) => {
+          {trendingMovies.slice(0, 3).map((movie) => {
 
             return (
               <Card
@@ -181,6 +181,7 @@ const Home = () => {
                 bg="info"
                 text="white"
                 className="text-center p-3"
+                style={{}}
               >
 
                 {movie.poster_path ? (
