@@ -27,7 +27,7 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_MOVIE = gql`
-  mutation addMovie($title: String!, $year: String!) {
+  mutation addMovie($title: String!, $year: Int!) {
     addMovie(title: $title, year: $year) {
       title
       year
@@ -36,7 +36,7 @@ export const ADD_MOVIE = gql`
 `;
 
 export const REMOVE_MOVIE = gql`
-  mutation removeMovie($title: String!, $year: String!) {
+  mutation removeMovie($title: String!, $year: Int!) {
     removeMovie(title: $title, year: $year) {
       title
       year
