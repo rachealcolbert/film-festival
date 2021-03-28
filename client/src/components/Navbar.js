@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 import SignUpForm from "./SignupForm";
 import LoginForm from ".//LoginForm";
+// import Profile from "../pages/Profile";
 
 const AppNavbar = () => {
   // set modal display state
@@ -25,8 +26,8 @@ const AppNavbar = () => {
                 Search For Movies
               </Nav.Link>
               <>
-                <Nav.Link as={Link} to="/profile">
-                  See Your Movies
+                <Nav.Link as={Link} to="/Profile">
+                  My Movies
                 </Nav.Link>
                 <Nav.Link onClick={logout}>Logout</Nav.Link>
               </>

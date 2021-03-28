@@ -1,16 +1,13 @@
 /* eslint-disable no-unused-expressions */
 import React, { useState, useEffect } from "react";
 import {
-  InputGroup,
-  FormControl,
   Button,
   Jumbotron,
   Card,
-  CardColumns,
   Container,
-  Form,
-  CardGroup,
+  CardColumns,
 } from "react-bootstrap";
+import Search from '../components/Search'
 
 
 import { SAVE_MOVIE } from '../utils/mutations'
@@ -107,27 +104,9 @@ const Home = () => {
 
   return (
     <div>
-      <Jumbotron>
-        <h2>Discover millions of movies.</h2>
-        <h4> Search now and save the ones you like!</h4>
-        <div>
-          <Form onSubmit={handleFormSubmit}>
-            <InputGroup className="mb-3">
-              <FormControl
-                placeholder="Search by movie title"
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                aria-label="Search by Movie"
-                aria-describedby="basic-addon2"
-              />
-              <InputGroup.Append>
-                <Button variant="outline-info" type="submit">
-                  Search
-                </Button>
-              </InputGroup.Append>
-            </InputGroup>
-          </Form>
-        </div>
+      <Jumbotron fluid>
+        <h2>Discover millions of movies. Search now!</h2>
+        <Search />
       </Jumbotron>
       <Container>
         <h2>

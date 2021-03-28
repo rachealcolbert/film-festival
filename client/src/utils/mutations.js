@@ -53,6 +53,17 @@ mutation removeMovie($bookId: String!) {
         movieId
         title
         image
+    }}}`
+
+export const ADD_MOVIE = gql`
+mutation addMovie($movies: String!, $title: String!, $year: String!) {
+  addMovie(movies: $movies, title: $title, year: $year) {
+    token
+    user {
+      movies {
+        title
+        year
+      }
     }
   }
 }
