@@ -8,6 +8,7 @@ import {
   Container,
   Form,
 } from "react-bootstrap";
+
 import { searchMovies } from "../utils/API";
 import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
 
@@ -19,6 +20,7 @@ import { useMutation } from "@apollo/react-hooks";
 const Search = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+
   const [addMovie] = useMutation(ADD_MOVIE);
 
   const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
@@ -61,7 +63,8 @@ const Search = () => {
     const movieToSave = searchedMovies.find(
       (movies) => movies.movieId === movieId
     );
-
+    const movieToSave = searchedMovies.find((movies) => movies.movieId === movieId);
+    
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {

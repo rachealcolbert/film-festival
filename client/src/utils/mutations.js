@@ -49,3 +49,4 @@ export const REMOVE_MOVIE = gql`
     }
   }
 `;
+
