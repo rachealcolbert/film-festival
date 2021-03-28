@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Jumbotron,
   Container,
@@ -6,42 +6,39 @@ import {
   Card,
   Button,
 } from "react-bootstrap";
-
-import { getMe } from "../utils/API";
 import Auth from "../utils/auth";
 
+import { removeMovieId } from "../utils/localStorage";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { GET_ME } from "../utils/queries";
+import { REMOVE_MOVIE } from "../utils/mutations";
+
 const Profile = () => {
-  const [userData, setUserData] = useState({});
+  const { loading, data } = useQuery(GET_ME);
+  console.log(data);
+  const userData = data?.me || {};
+  const [removeMovie] = useMutation(REMOVE_MOVIE);
 
-  const userDataLength = Object.keys(userData).length;
+  const handleDeleteMovie = async (movieId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
 
-        if (!token) {
-          return false;
-        }
+    try {
+      await removeMovieId({
+        variables: { movieId },
+      });
 
-        const response = await getMe(token);
+      removeMovieId(movieId);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-        if (!response.ok) {
-          throw new Error("something went wrong!");
-        }
-
-        const user = await response.json();
-        setUserData(user);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    getUserData();
-  }, [userDataLength]);
-
-  if (!userDataLength) {
-    return <h2>LOADING...</h2>;
+  if (loading) {
+    return <h2>Loading...</h2>;
   }
 
   return (
@@ -68,8 +65,11 @@ const Profile = () => {
                   <Card.Body>
                     <Card.Title>{movie.title}</Card.Title>
                     <Card.Text>Released in: {movie.year}</Card.Text>
-                    <Button variant="dark" type="submit">
-                      Save to My Movies
+                    <Button
+                      variant="dark"
+                      onClick={() => handleDeleteMovie(movie.movieId)}
+                    >
+                      Delete movie from list!
                     </Button>
                   </Card.Body>
                 </Card>

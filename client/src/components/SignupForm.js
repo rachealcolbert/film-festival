@@ -12,11 +12,12 @@ const SignupForm = () => {
     email: "",
     password: "",
   });
+
+  const [addUser, { error }] = useMutation(ADD_USER);
   // set state for form validation
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
-  const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -41,7 +42,7 @@ const SignupForm = () => {
       if (error) {
         throw new Error("Something went wrong");
       }
-
+      console.log(data);
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
@@ -59,7 +60,6 @@ const SignupForm = () => {
     <>
       {/* This is needed for the validation functionality above */}
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        {/* show alert if server response is bad */}
         <Alert
           dismissible
           onClose={() => setShowAlert(false)}
@@ -127,6 +127,7 @@ const SignupForm = () => {
           Submit
         </Button>
       </Form>
+      {error && <div>Signup failed</div>}
     </>
   );
 };
