@@ -8,16 +8,18 @@ import {
   Container,
   Form,
 } from "react-bootstrap";
-import { addMovie, searchMovies } from "../utils/API";
+import { searchMovies } from "../utils/API";
 import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
 
 import { ADD_MOVIE } from "../utils/mutations";
 import Auth from "../utils/auth";
 
+import { useMutation } from "@apollo/react-hooks";
+
 const Search = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [saveMovie, { error }] = useMutation(ADD_MOVIE);
+  const [addMovie] = useMutation(ADD_MOVIE);
 
   const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
 
@@ -67,11 +69,10 @@ const Search = () => {
     }
 
     try {
-      const response = await saveMovie(movieToSave, token);
+      await addMovie({
+        variables: { movieId },
+      });
 
-      if (!response.ok) {
-        throw new Error("something went wrong!");
-      }
       setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
     } catch (err) {
       console.error(err);

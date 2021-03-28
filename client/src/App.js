@@ -6,34 +6,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar";
 import Search from "./components/Search";
 import Home from "./pages/Home";
+import { ApolloProvider } from "@apollo/react-hooks";
+
 import Profile from "./pages/Profile";
-import {
-  // ApolloClient,
-  createHttpLink,
-  InMemoryCache,
-  ApolloProvider,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
-
-const httpLink = createHttpLink({
-  uri: "/graphql",
-});
-
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem("token");
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  };
-});
+// import { setContext } from "@apollo/client/link/context";
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  request: (operation) => {
+    const token = localStorage.getItem("id_token");
+
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+  },
+  uri: "/graphql",
 });
 
 function App() {
