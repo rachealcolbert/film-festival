@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   InputGroup,
   FormControl,
@@ -11,15 +11,28 @@ import {
   CardGroup,
 } from "react-bootstrap";
 
+
+import { SAVE_MOVIE } from '../utils/mutations'
+import { useMutation } from '@apollo/client'
+
 import { searchMovies } from "../utils/API";
 import Auth from "../utils/auth";
+import { saveMovieIds, getSavedMovieIds } from '../utils/localStorage';
 
 const Home = () => {
   //   const { loading, data, error } = useQuery(GET_MOVIES);
-  //   console.log(data);
+
 
   const [searchedMovies, setSearchedMovies] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+
+  const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
+  const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
+
+  useEffect(() => {
+    return () => saveMovieIds(savedMovieIds);
+  });
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -29,14 +42,14 @@ const Home = () => {
 
     try {
       const response = await searchMovies(searchInput);
-      console.log(response);
+
       if (!response.ok) {
         throw new Error("something went wrong!");
       }
 
       const { Search: movies } = await response.json();
-      console.log(movies);
       const movieData = movies.map((movie) => ({
+        id: movie.imdbID,
         title: movie.Title,
         year: movie.Year,
         image: movie.Poster,
@@ -48,6 +61,38 @@ const Home = () => {
       console.error(err);
     }
   };
+
+  const handleSaveMovie = async (movieId) => {
+
+    const movieToSave = searchedMovies.find((movie) => movie.movieId === movieId);
+
+    // get token
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+
+      const { movieData } = await saveMovie({
+        variables: { input: movieToSave }
+      });
+
+      if (error) {
+        throw new Error('Something went wrong');
+      }
+
+
+
+
+      setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
   return (
     <div>
       <Jumbotron>
@@ -82,7 +127,7 @@ const Home = () => {
           {searchedMovies.map((movie) => {
             return (
               <Card
-                key={movie.title}
+                key={movie.id}
                 bg="info"
                 text="white"
                 className="text-center p-3"
@@ -90,10 +135,14 @@ const Home = () => {
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
                   <p> Year released: {movie.year}</p>
-                  <img src={movie.image} style={{ width: "100%" }} />
+                  <img src={movie.image} style={{ width: "100%" }} alt={movie.title} />
 
                   {/* {Auth.loggedIn() && ( */}
-                  <Button className="btn-block btn-light">Save Movie</Button>
+                  <Button className="btn-block btn-light" disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
+                    onClick={() => handleSaveMovie(movie.movieId)}>
+                    {savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)
+                      ? 'This movie has already been saved!'
+                      : 'Save this Movie!'}</Button>
                   {/* )} */}
                 </Card.Body>
               </Card>
