@@ -64,7 +64,6 @@ const Search = () => {
       (movies) => movies.movieId === movieId
     );
 
-
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
