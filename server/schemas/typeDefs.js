@@ -17,6 +17,9 @@ const typeDefs = gql`
   type Query {
     movies: [Movie!]!
     me: User
+    user(username: String!): User
+    savedMovies(username: String): [Movie]
+    movie(title: String!): Movie
   }
   type Mutation {
     addUser(email: String!, username: String!, password: String!): Auth
