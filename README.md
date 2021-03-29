@@ -13,12 +13,18 @@ When I visit the homepage, I first see the top 3 trending movies. I can then sea
 
 When I visit my profile, I can see all my saved movies and remove any that I want. 
 
+## Installation
+When you clone this repo, run "npm i" to install all dependencies. To start the app, run "npm start" in your terminal. 
+
 ## Credits
 The creators or this project are:
 
 Riley Beach
+
 Racheal Colbert
+
 Jonah Benson
+
 Alan Mayer
 
 ## Contributing
