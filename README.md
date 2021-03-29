@@ -4,7 +4,7 @@ As a person who loves movies, I want a website where I can see the top trending 
 
 **Link to GitHub Repo:** https://github.com/rachealcolbert/film-festival
 
-**Link to Deployed App:** https://github.com/rachealcolbert/retail-shop
+**Link to Deployed App:** https://shielded-dusk-82497.herokuapp.com/ 
 
 ![Image of Application](homescreen.png)
 
