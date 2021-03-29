@@ -35,6 +35,7 @@ const Search = () => {
     if (!searchInput) {
       return false;
     }
+    console.log("handleFormSubmit", searchInput);
 
     try {
       const response = await searchMovies(searchInput);
@@ -46,11 +47,13 @@ const Search = () => {
       const { Search: movies } = await response.json();
       console.log(movies);
       const movieData = movies.map((movie) => ({
-        movieId: movies.id,
+        movieId: movie.imdbID,
         title: movie.Title,
         year: movie.Year,
         image: movie.Poster,
       }));
+
+      console.log("SearchedMovies: ", movieData);
 
       setSearchedMovies(movieData);
       setSearchInput("");
@@ -60,9 +63,12 @@ const Search = () => {
   };
 
   const handleSaveMovie = async (movieId) => {
+    console.log("handleSaveMovie:", movieId);
     const movieToSave = searchedMovies.find(
       (movies) => movies.movieId === movieId
     );
+
+    console.log("movieToSave", movieToSave);
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -72,7 +78,11 @@ const Search = () => {
 
     try {
       await addMovie({
-        variables: { movieId },
+        variables: {
+          movieID: movieToSave.movieId,
+          title: movieToSave.title,
+          year: parseInt(movieToSave.year),
+        },
       });
 
       setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
